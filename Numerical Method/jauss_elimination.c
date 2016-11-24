@@ -3,7 +3,7 @@
 void main(){
     //inputs of coefficients and constant terms.
     float a[15][15];
-    int n,i,j;
+    int n,i,j,b,d;
     printf("Enter the number of variables:");
     scanf("%d",&n);
     printf("\nEnter the coefficients:");
@@ -25,5 +25,15 @@ void main(){
         }
         printf("\n");
     }
-    clrscr();
+    for(i=0;i<=n;i++){
+            int d=a[i][j];
+        if(i==j){
+            for(j=i;j<=n;j++){
+                a[i][j]=a[i][j]/a[i][j];
+                int b =a[i][j];
+            }
+        }
+        else
+            a[i][j]=a[i][j]-d*b;
+    }
 }
