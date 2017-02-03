@@ -1,39 +1,48 @@
 #include<stdio.h>
-#include<conio.h>
-void main(){
-    //inputs of coefficients and constant terms.
-    float a[15][15];
-    int n,i,j,b,d;
-    printf("Enter the number of variables:");
+int main()
+{
+    int i,j,k,n;
+    float A[20][20],c,x[10],sum=0.0;
+    printf("\nEnter the order of matrix: ");
     scanf("%d",&n);
-    printf("\nEnter the coefficients:");
-    for(i=0;i<n;i++){
-        for(j=0;j<n;j++){
-            printf("\na[%d][%d]:",i,j);
-            scanf("%f",&a[i][j]);
+    printf("\nEnter the elements of augmented matrix row-wise:\n\n");
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=(n+1); j++)
+        {
+            printf("A[%d][%d] : ", i,j);
+            scanf("%f",&A[i][j]);
         }
     }
-    printf("\nEnter the constants terms:");
-    for(i=0;i<n;i++){
-        scanf("%f",&a[i][n]);
-    }
-
-    printf("\n\n The matrix in augmented form is:\n");
-    for(i=0;i<n;i++){
-        for(j=0;j<n+1;j++){
-            printf("%f\t",a[i][j]);
-        }
-        printf("\n");
-    }
-    for(i=0;i<=n;i++){
-            int d=a[i][j];
-        if(i==j){
-            for(j=i;j<=n;j++){
-                a[i][j]=a[i][j]/a[i][j];
-                int b =a[i][j];
+    for(j=1; j<=n; j++) /* loop for the generation of upper triangular matrix*/
+    {
+        for(i=1; i<=n; i++)
+        {
+            if(i>j)
+            {
+                c=A[i][j]/A[j][j];
+                for(k=1; k<=n+1; k++)
+                {
+                    A[i][k]=A[i][k]-c*A[j][k];
+                }
             }
         }
-        else
-            a[i][j]=a[i][j]-d*b;
     }
+    x[n]=A[n][n+1]/A[n][n];
+    /* this loop is for backward substitution*/
+    for(i=n-1; i>=1; i--)
+    {
+        sum=0;
+        for(j=i+1; j<=n; j++)
+        {
+            sum=sum+A[i][j]*x[j];
+        }
+        x[i]=(A[i][n+1]-sum)/A[i][i];
+    }
+    printf("\nThe solution is: \n");
+    for(i=1; i<=n; i++)
+    {
+        printf("\nx%d=%f\t",i,x[i]); /* x1, x2, x3 are the required solutions*/
+    }
+    return(0);
 }
