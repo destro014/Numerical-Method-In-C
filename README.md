@@ -1,2 +1,2 @@
 # Codes-in-c
-These are the codes done in c programming languages.
+This repository consist of C programming code for different method available in Numerical Method.
